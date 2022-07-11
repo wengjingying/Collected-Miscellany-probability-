@@ -1,9 +1,9 @@
 # Collected-Miscellany-probability-
 A bunch of topic I am interested
 
-In progress:
+## In progress:
 
-Hometask (temp name): 
+### Hometask (temp name): 
 
 Question 1: Given a length 4 vector V, and two numbers N<M, what is the probability to find two components a and b from V that a>=N and b>=M (task 1).
 
@@ -16,9 +16,9 @@ Question 4: Given V0 and E, get the max sum of each vector as sum of the V0 vect
 Question 5: Given V0 and E, what is the minumum value to be add to which component in V0 or E to fullfill a certain probability in task 2.
 
 
-To do:
+## To do:
 
-1: Gatch system:
+### 1: Gatch system:
 
 Basic question (Q1): Given probabilities of pulling a set consisted of 1 weapon and 3 equipment (top, medium, bottom), some garanteed rules, how many pulls are expected to have the set.
 
@@ -31,7 +31,7 @@ Q4: Adding Rule 3: One unobtained item in that set is garanteed in every 50 pull
 Q5: Plot of probability, garanteed value vs the expected pulls. The distribution of pulls.
 
 
-2: A network of combat
+### 2: A network of combat
 
 Q1: Given a list of teams with different acquired abilities and a list of bosses with desired abilities, calculate the fullfilled number and proportion.
 
@@ -40,7 +40,7 @@ Q2: Add influence factors as penalty or bonus scores for the team
 Q3: Feed data and train a predictive model.
 
 
-3: Factorial figures
+### 3: Factorial figures
 
 
 
