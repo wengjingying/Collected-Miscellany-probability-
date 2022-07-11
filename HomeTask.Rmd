@@ -1,5 +1,5 @@
 ---
-title: "BH3Homelabor"
+title: "HomeTask"
 author: "Jingying Weng"
 date: "2022/6/30"
 output:
@@ -9,12 +9,112 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE,tidy.opts=list(width.cutoff=60),tidy=TRUE)
 ```
 
-# Backgroud
+## Main questions:
 
-Daily task reflashes several S+ tasks, Maxmum hometown level requires 20 and 18 points of randomly selected two out of four abilities to complete S+ task. Original S rank Valkyries contribute 8, 10, 12 points in rank S, SS and SSS. Original A rank Valkyries contribute points in rank A to SSS, and original B rank Valkries contribute points from rank B to SSS. Free elves Jingwei's Wing contributes 1-4 Dexterity points for rank A to SSS and Blood embrace gives 1-4 points in Fitness.
+### Question 1: Given a length 4 vector V, and two numbers N<M, what is the probability to find two components a and b from V that a >= N and b >= M (task 1).
+
+* Randomly select two out of 4 abilities, check if I can fulfill the 2 requirement. randomly select one of the two to be higher and another to be lower. Is it same to select on higher and select one lower from remaining?
+
+Possible combinations:
+
+2-1: Choose(4,2) = `r choose(4,2)` multiply 2 = 12
+
+4-3: Choose(4,1) multiply Choose(3,1) = 12
+
+So we have 12 possible combinations of tasks.
+
+<br>
+
+* Then the probability to fulfill the tasks depends on the maximum value we have for each abilities.
+
+For example, if we only had one $a >= N$ and another $b >= M$, the probability $p$ is 1/12. If we had k refresh chances, the probability increased to $p_k$=1-(11/12)^3 = `r 1-(11/12)^3`. If we had one $a >= N$, and $b_1$, $b_2$ $>= M$, then $p$ = 2/12.
+
+To calculate the probability, first find the count A of $a_i >= N$. Then find the count B of $b_i >= M$.
+
+If A<2,     p=0;
+
+If A>=B>=2, p=(2!choose(B,2)+(A-B)*B))/12;
+
+If A>=B>=1, A>=2,B<2, p=(A-B)*B))/12;
+
+Note1: choose(0,2) and choose(1,2) are both 0
+Note2: If A < 2, B most < 2
+
+So we can use P=(2!choose(B,2)+(A-B)*B))/12 for all conditions
+
+
+### Question 2：Given another length 4 vector E, only one component of E can be used to be added to the corresponding position of V to fulfill task 1. What is the probability now (task 2).
+
+Given E, the final number of a>=N and b>=M combinations is the union of each new combinations after adding one $e_i$ to the corresponding component $v_i$ in V.
+
+We can separate the final possibility calculation into following steps:
+
+Step 1: Obtain the numbers of combinations of the set $VE_i = V + e_i$, i=1:4.
+
+Step 2: Calculate the probability $p_0$ for the union of combinations in Step 1.  
+
+Step 3: Calculate the final $p_1$ as 1-(1-$p_0$)^(1+refresh times)
+
+For step 1 and 2:
+
+Since we only add one $e_i$ a time, it affects one component $v_i$ only. Thus any new combinations after adding $e_i$ will be different from the new combinations after adding another $e_i$. We only need to add the number of new combinations $\Delta C_{ve_i}$  with the number of combinations $C_v$ for the original vector V.  
+
+
+<br>
+
+
+* Function 1: Given reflash times f, your maxmum two sums of each ability as vector V, your elf maxmum bonus for each ability E, what is the probability to complete task in level X of requirement R
+
+```{r}
+P1<-function(f=2,R=c(20,18),
+             V=c("F"=18,"D"=18,"K"=18,"S"=18),
+             E=c("F"=6,"D"=0,"K"=6,"S"=4)
+){
+  N<-min(R)
+  M<-max(R)
+  A1<-sum(V>=N)
+  B1<-sum(V>=M)
+  P0=(choose(B1,2)*factorial(2)+(A1-B1)*B1)/12
+  P=P0
+  print(paste("Given V, ",A1," and ",B1," fulfill requirement ", N,", ",M, ", P0 = ",round(P,3),sep=""))
+  if(A1>=1){# if none of them are at least N, it is impossible to fullfill the requirement
+    for(a in names(V)){
+      VE=V[a]+E[a]
+      Vnew=V
+      Vnew[a]<-VE
+      A2<-sum(Vnew>=N)
+      B2<-sum(Vnew>=M)
+      P1=(choose(B2,2)*factorial(2)+(A2-B2)*B2)/12
+      deltaP=P1-P0
+      P=P+deltaP
+      print(paste("Adding E to position ", a,", ",A2," and ",B2," fulfill requirement, ", round(deltaP,3)," more likely now",sep=""))
+    }
+    P2<-1-(1-P)^(f+1)
+    print(paste("With refresh times ",f,", P0 increased from ",round(P,3)," to ",round(P2,3),sep=""))
+  }
+  else(print("No possible combinations to fulfill the requirement"))
+}
+##test
+P1()
+P1(f=0,V=c("F"=18,"D"=18,"K"=16,"S"=16),E=c("F"=0,"D"=0,"K"=0,"S"=0))
+P1(f=0,V=c("F"=18,"D"=18,"K"=16,"S"=16),E=c("F"=6,"D"=0,"K"=0,"S"=0))
+P1(f=0,V=c("F"=18,"D"=18,"K"=16,"S"=16),E=c("F"=6,"D"=0,"K"=6,"S"=0))
+```
+<br>
+
+### Question 3: Given a list of 4 vectors V0, get the max sum for each vector as the vector V for Question 1. Each sum can used up to 2 components.
+
+### Question 4: Given V0 and E, get the max sum of each vector as sum of the V0 vector and the corresponding E component, can only use up to 1 component in E and up to total of 4 component in V0.
+
+### Question 5: Given V0 and E, what is the minimum value to be add to which component in V0 or E to fulfill a certain probability in task 2.
+
+
+## Backgroud
+
+Daily task list could have several S+ tasks, maximum hometown level requires 20 and 18 points of randomly selected two out of four abilities to complete S+ task. Original S rank Valkyries contribute 8, 10, 12 points in rank S, SS and SSS. Original A rank Valkyries contribute points in rank A to SSS, and original B rank Valkyries contribute points from rank B to SSS. Free elves Jingwei's Wing contributes 1-4 Dexterity points for rank A to SSS and Blood embrace gives 1-4 points in Fitness.
 
 ```{r,echo=FALSE,results='asis'}
 library(knitr)
@@ -40,7 +140,7 @@ contribute_Brank<-data.frame("rank"=c("B","A","S","SS","SSS"),"value"=c(1,1,2,3,
 
 <br>
 
-Same Valkyries usually have same ability except several newly added ones.Free and gatch elves also had abilities
+Same Valkyries usually have same ability except several newly added ones.Free and paid elves also had abilities.
 
 ```{r,echo=FALSE}
 #Jingwei's Wing: 1-4 d
@@ -59,120 +159,3 @@ contribute_Pelf<-data.frame("star"=c("2","3","4"),"value"=c(6,7,8))
 #kable(contribute_Srank,caption="Paid elves")
 ```
 
-## 1: First question： What is the probability to complete the task
-
-Given requirement, can I fullfill it.
-
-Solution 1: randomly select two out of 4 abilities, check if I can fullfill the 2 requirement. randomly select one of the two to be higher and another to be lower. Is it same to select on higher and select one lower from remaining?
-
-Possible combinations:
-2-1: Choose(4,2) = `r choose(4,2)` multiply 2 = 12
-4-3: Choose(4,1) multiply Choose(3,1) = 12
-
-So they are the same and we have 12 possible combinations of tasks.
-
-Then the probability to fullfill the tasks depends on the maximum value we have for each abilities.
-
-For example, if we only had one ability M and another N, M and N is the requirement for tier X task. Then the probability to fullfill a tier X task is 1/12. If we had k reflash chance, the probability increased to be 1-(11/12)^3 = `r 1-(11/12)^3`. If we had one ability M, and another two N, then p = 2/12.
-
-We can define M > N. To calculate the probability, first find the set A of ability we have at least N. Then find the set B of at least M.
-
-If A<2,    p=0;
-
-If A>=B>=2, p=(2!choose(B,2)+(A-B)*B))/12;
-
-If A>=B>=1, A>=2,B<2, p=(A-B)*B))/12;
-
-Note1: choose(0,2) and choose(1,2) are both 0
-Note2: If A < 2, B most < 2
-
-So we can use P=(2!choose(B,2)+(A-B)*B))/12 for all conditions
-
-Given a list of elves and their abilities, the final number of tasks can be fullfilled it the union of each new combinations after adding one elf with the max value for each ability.
-
-The final set of task can be fullfilled is the union of four sets of valkyries plus one elf with the max value of one ability.
-
-We can separate the final possibility calculation into following steps:
-
-1: Find the max value of Valkyries for each ability: Order the values in decreasing order, add up the max two values, return as vector V.
-2: Find the max value of elves for each ability, return as vector E.  
-3: Assign the requirement value as N, M, N<M.
-4: Calculate the set VEi of V + E[i], i=1:4.
-5: Calculate the union set VE, the probability P0
-6: Calculate the final P1 as 1-(1-P0)^(1+reflash times)
-
-For step 4 and 5:
-
-Since we only add one elf a time, it affects one ability only. Thus any new set after adding one elf will be different than the new set adding another elf. We only need to add the number of new set $\Delta_{VE_i}$ after adding each elf $E_i$ with the number of set V for the original Valkyries's abilities.  
-
-
-
-
-<br>
-
-
-### Function 1: Given reflash times f, your maxmum two sums of each ability as vector V, your elf maxmum bonus for each ability E, what is the probability to complete task in level X of requirement R
-```{r}
-P1<-function(f=2,R=c(20,18),
-             V=c("F"=18,"D"=18,"K"=18,"S"=18),
-             E=c("F"=6,"D"=0,"K"=6,"S"=4)
-){
-  N<-min(R)
-  M<-max(R)
-  A1<-sum(V>=N)
-  B1<-sum(V>=M)
-  P0=(choose(B1,2)*factorial(2)+(A1-B1)*B1)/12
-  P=P0
-  print(paste("With original Valkyries set, the probability to complete the task is ",round(P,3),sep=""))
-  if(A1>=1){# if none of them are at least N, it is impossible to fullfill the requirement
-    for(a in names(V)){
-      VE=V[a]+E[a]
-      Vnew=V
-      Vnew[a]<-VE
-      A2<-sum(Vnew>=N)
-      B2<-sum(Vnew>=M)
-      P1=(choose(B2,2)*factorial(2)+(A2-B2)*B2)/12
-      deltaP=P1-P0
-      P=P+deltaP
-      print(paste("Adding elf with ability ", a,", ",A2," and ",B2," fullfill requirement ", R[1],", ",R[2], ", ",round(deltaP,3)," more likely to complete the task",sep=""))
-    }
-    P2<-1-(1-P)^(f+1)
-    print(paste("With reflash times ",f,", the probability to fullfill the requirement increased from ",round(P,3)," to ",round(P2,3),sep=""))
-  }
-  else(print("No possible combinations to full fill the requirement"))
-}
-##test
-P1()
-P1(f=0,V=c("F"=18,"D"=18,"K"=16,"S"=16),E=c("F"=0,"D"=0,"K"=0,"S"=0))
-P1(f=0,V=c("F"=18,"D"=18,"K"=16,"S"=16),E=c("F"=6,"D"=0,"K"=0,"S"=0))
-P1(f=0,V=c("F"=18,"D"=18,"K"=16,"S"=16),E=c("F"=6,"D"=0,"K"=6,"S"=0))
-```
-
-### 1.2: The Final probability as a function of reflash times and the base probability
-
-```{r}
-
-
-```
-
-
-<br>
-
-## 2: Second question: The minimum amount of Valkyries and elves to complete the task with probability P.
-
-```{r}
-
-
-
-
-```
-
-
-
-
-
-
-
-
-
-## 3: Third question: 
