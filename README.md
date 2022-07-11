@@ -15,6 +15,7 @@ Question 4: Given V0 and E, get the max sum of each vector as sum of the V0 vect
 
 Question 5: Given V0 and E, what is the minumum value to be add to which component in V0 or E to fullfill a certain probability in task 2.
 
+
 To do:
 
 1: Gatch system:
@@ -29,6 +30,7 @@ Q4: Adding Rule 3: One unobtained item in that set is garanteed in every 50 pull
 
 Q5: Plot of probability, garanteed value vs the expected pulls. The distribution of pulls.
 
+
 2: A network of combat
 
 Q1: Given a list of teams with different acquired abilities and a list of bosses with desired abilities, calculate the fullfilled number and proportion.
@@ -37,5 +39,8 @@ Q2: Add influence factors as penalty or bonus scores for the team
 
 Q3: Feed data and train a predictive model.
 
-3: ...
+
+3: Factorial figures
+
+
 
