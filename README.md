@@ -28,7 +28,9 @@ Q3: Adding Rule 2: One rare item is garanteed in every 10 pulls, it is possibly 
 
 Q4: Adding Rule 3: One unobtained item in that set is garanteed in every 50 pulls. What is the expected pulling number now.
 
-Q5: Plot of probability, garanteed value vs the expected pulls. The distribution of pulls.
+Q5: What if stopped with uncompleted set, how much pulls will be to continue again without memory.
+
+Q6: Plot of probability, garanteed value vs the expected pulls. The distribution of pulls.
 
 
 ### 2: A network of combat
