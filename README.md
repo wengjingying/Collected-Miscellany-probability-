@@ -44,5 +44,14 @@ Q3: Feed data and train a predictive model.
 
 ### 3: Factorial figures
 
+### 4：PVP
 
+Suppose one player had a certain chance of being the top 3 (P1) in lv2 or top 10 (P2) in lv1 pvp arena (abyss). Being top 3 in LV2 plus 100 credit, being top 10 in LV2 (P1b) has no change in credit. Being top 3 in LV1 add 100 credit (P2b), top 10 no change, but bottom 10 minus 200 credit (1-P2). 
+P could be considered as the proportion of optimizd teams for each boss one player has (with added bonus like skills, SS and homeland levels)
+
+Variables: P and credit change.
+
+Q1: Given certain Ps,
+
+Q2: Find Ps to maximize the times remain in LV1 (or back to LV1). 
 
