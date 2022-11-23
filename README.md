@@ -42,5 +42,16 @@ Q3: Feed data and train a predictive model.
 
 ### 3: Factorial figures
 
+### 4: Weapon question
+
+Q1: a new weapon comes with an old weapon, possibly be the one you don't have. You have P1 chance to get the new weapon without the old one and P2 chance to get both of them. The one you got became the old weapons in the future pulls. What are P1 and P2.
+
+Q2: The chance to have an old weapon you have (P3) or don't have (P4) in a new pull
+
+Q3: The chance to have both old weapon in a new pull
+
+Q4: If you only pull when both weapons you don't have, what is the expected pulls to collect them all (or with one left)
+
+
 
 
