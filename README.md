@@ -28,7 +28,9 @@ Q3: Adding Rule 2: One rare item is garanteed in every 10 pulls, it is possibly 
 
 Q4: Adding Rule 3: One unobtained item in that set is garanteed in every 50 pulls. What is the expected pulling number now.
 
-Q5: Plot of probability, garanteed value vs the expected pulls. The distribution of pulls.
+Q5: What if stopped with uncompleted set, how much pulls will be to continue again without memory.
+
+Q6: Plot of probability, garanteed value vs the expected pulls. The distribution of pulls.
 
 
 ### 2: A network of combat
@@ -42,7 +44,20 @@ Q3: Feed data and train a predictive model.
 
 ### 3: Factorial figures
 
-### 4: Weapon question
+
+### 4：PVP
+
+Suppose one player had a certain chance of being the top 3 (P1) in lv2 or top 10 (P2) in lv1 pvp arena (abyss). Being top 3 in LV2 plus 100 credit, being top 10 in LV2 (P1b) has no change in credit. Being top 3 in LV1 add 100 credit (P2b), top 10 no change, but bottom 10 minus 200 credit (1-P2). 
+P could be considered as the proportion of optimizd teams for each boss one player has (with added bonus like skills, SS and homeland levels)
+
+Variables: P and credit change.
+
+Q1: Given certain Ps,
+
+Q2: Find Ps to maximize the times remain in LV1 (or back to LV1). 
+
+
+### 5: Weapon question
 
 Q1: a new weapon comes with an old weapon, possibly be the one you don't have. You have P1 chance to get the new weapon without the old one and P2 chance to get both of them. The one you got became the old weapons in the future pulls. What are P1 and P2.
 
@@ -51,7 +66,5 @@ Q2: The chance to have an old weapon you have (P3) or don't have (P4) in a new p
 Q3: The chance to have both old weapon in a new pull
 
 Q4: If you only pull when both weapons you don't have, what is the expected pulls to collect them all (or with one left)
-
-
 
 
